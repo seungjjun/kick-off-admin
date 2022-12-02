@@ -34,6 +34,18 @@ const server = setupServer(
       },
     ],
   }))),
+
+  rest.get(`${baseUrl}/admin-user`, (req, res, ctx) => res(ctx.json({
+    user: {
+      id: 1,
+      identification: 'jel1y',
+      name: '훈이',
+      grade: '프로',
+    },
+
+    postNumber: 1,
+    commentNumber: 3,
+  }))),
 );
 
 export default server;

@@ -7,8 +7,11 @@ import MemberList from '../components/MemberList';
 export default function MemberListPage() {
   const [checkUsers, setCheckUsers] = useState([]);
   const [grade, setGrade] = useState('');
+  const [member, setMember] = useState('');
 
   const memberStore = useMemberStore();
+
+  const { totalMembers } = memberStore;
 
   useEffect(() => {
     const fetchMember = async () => {
@@ -19,7 +22,11 @@ export default function MemberListPage() {
     fetchMember();
   }, []);
 
-  const { totalMembers } = memberStore;
+  const searchMember = async (member) => {
+    await memberStore.searchMember(member);
+
+    setMember('');
+  };
 
   const isChecked = (checked, userId) => {
     if (checked) {
@@ -65,12 +72,22 @@ export default function MemberListPage() {
     setGrade,
   };
 
+  const members = {
+    member,
+    setMember,
+    searchMember,
+    errorMessage: memberStore.errorMessage,
+    isSearchFail: memberStore.isSearchFail,
+  };
+
   return (
     <MemberList
       totalMembers={totalMembers}
       selectUser={selectUser}
       changeGrade={changeGrade}
       userAllCheck={userAllCheck}
+      members={members}
+      user={memberStore.user}
     />
   );
 }

@@ -22,6 +22,18 @@ export default class MemberApiService {
       grade,
     });
   }
+
+  async searchMember(member) {
+    const url = `${baseUrl}/admin-user`;
+
+    const { data } = await axios.get(url, {
+      params: {
+        userName: member,
+      },
+    });
+
+    return data;
+  }
 }
 
 export const memberApiService = new MemberApiService();
