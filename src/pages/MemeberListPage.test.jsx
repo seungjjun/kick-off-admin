@@ -8,6 +8,8 @@ const makeUserArray = jest.fn();
 
 const changeGrade = jest.fn();
 
+const removeUser = jest.fn();
+
 const searchMember = jest.fn();
 
 let totalMembers = [];
@@ -20,6 +22,7 @@ jest.mock('../hooks/useMemberStore', () => () => ({
   fetchUsers,
   makeUserArray,
   changeGrade,
+  removeUser,
   totalMembers,
   searchMember,
   errorMessage,

@@ -49,7 +49,7 @@ const ProfileImage = styled.img`
 `;
 
 export default function MemberList({
-  totalMembers, selectUser, changeGrade, userAllCheck, members, user,
+  totalMembers, selectUser, changeGrade, userAllCheck, members, user, removeUser,
 }) {
   const handleChangeCheck = (checked, userId) => {
     selectUser.isChecked(checked, userId);
@@ -57,6 +57,10 @@ export default function MemberList({
 
   const handleClickGrade = () => {
     changeGrade(selectUser.checkUsers);
+  };
+
+  const handleClickRemove = () => {
+    removeUser();
   };
 
   const handleChangeGrade = (target) => {
@@ -200,7 +204,7 @@ export default function MemberList({
           </select>
           <span>(으)로</span>
           <button type="button" onClick={handleClickGrade}>변경</button>
-          <button type="button">강제 탈퇴</button>
+          <button type="button" onClick={handleClickRemove}>강제 탈퇴</button>
         </div>
       </div>
     </Container>
