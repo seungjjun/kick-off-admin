@@ -23,6 +23,16 @@ export default class MemberApiService {
     });
   }
 
+  async removeUser(checkedUserId) {
+    const url = `${baseUrl}/admin-users`;
+
+    axios.delete(url, {
+      data: {
+        usersId: checkedUserId,
+      },
+    });
+  }
+
   async searchMember(member) {
     const url = `${baseUrl}/admin-user`;
 

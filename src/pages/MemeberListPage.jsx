@@ -52,6 +52,10 @@ export default function MemberListPage() {
     setCheckUsers([]);
   };
 
+  const removeUser = async () => {
+    await memberStore.removeUser(checkUsers);
+  };
+
   const userAllCheck = (checked) => {
     if (checked) {
       const userIds = [];
@@ -88,6 +92,7 @@ export default function MemberListPage() {
       userAllCheck={userAllCheck}
       members={members}
       user={memberStore.user}
+      removeUser={removeUser}
     />
   );
 }

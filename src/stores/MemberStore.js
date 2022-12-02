@@ -31,6 +31,14 @@ export default class MemberStore extends Store {
     this.publish();
   }
 
+  async removeUser(checkedUserId) {
+    await memberApiService.removeUser(checkedUserId);
+
+    this.fetchUsers();
+
+    this.publish();
+  }
+
   async searchMember(member) {
     try {
       const data = await memberApiService.searchMember(member);

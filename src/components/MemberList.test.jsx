@@ -6,6 +6,8 @@ const changeGrade = jest.fn();
 
 const userAllCheck = jest.fn();
 
+const removeUser = jest.fn();
+
 const context = describe;
 
 let members = {};
@@ -61,6 +63,7 @@ describe('MemberList', () => {
       userAllCheck={userAllCheck}
       members={members}
       user={user}
+      removeUser={removeUser}
     />);
   });
 
@@ -122,6 +125,14 @@ describe('MemberList', () => {
       expect(members.searchMember).toBeCalled();
 
       screen.getByText(/피카츄/);
+    });
+  });
+
+  context('멤버를 탈퇴시킬 경우', () => {
+    it('선태한 사용자를 탈퇴시킬 수 있다.', () => {
+      fireEvent.click(screen.getByText('강제 탈퇴'));
+
+      expect(removeUser).toBeCalled();
     });
   });
 });
