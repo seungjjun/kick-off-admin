@@ -5,9 +5,14 @@ export default class MemberStore extends Store {
   constructor() {
     super();
 
-    this.members = [];
+    this.errorMessage = '';
 
+    this.members = [];
     this.totalMembers = [];
+
+    this.user = {};
+
+    this.searchState = '';
   }
 
   async fetchUsers() {
@@ -26,6 +31,20 @@ export default class MemberStore extends Store {
     this.publish();
   }
 
+  async searchMember(member) {
+    try {
+      const data = await memberApiService.searchMember(member);
+
+      this.user = data;
+
+      this.changeSearchState('success');
+    } catch (e) {
+      const message = e.response.data;
+
+      this.changeSearchState('fail', { errorMessage: message });
+    }
+  }
+
   makeUserArray() {
     this.totalMembers = [];
 
@@ -36,6 +55,18 @@ export default class MemberStore extends Store {
         commentNumber: this.members.commentNumbers[i],
       });
     }
+  }
+
+  changeSearchState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+
+    this.searchState = state;
+
+    this.publish();
+  }
+
+  get isSearchFail() {
+    return this.searchState === 'fail';
   }
 }
 

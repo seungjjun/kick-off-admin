@@ -30,4 +30,16 @@ describe('MemberStore', () => {
       expect(commentNumbers[0]).toBe(6);
     });
   });
+
+  context('사용자를 검색할 때', () => {
+    it('검색한 사용자의 정보를 확인할 수 있다', async () => {
+      await memberStore.searchMember();
+
+      const { user } = memberStore;
+
+      expect(user.user.identification).toBe('jel1y');
+      expect(user.user.name).toBe('훈이');
+      expect(user.user.grade).toBe('프로');
+    });
+  });
 });
