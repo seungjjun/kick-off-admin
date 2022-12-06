@@ -10,6 +10,7 @@ export default function GradeBoard({ applicationPosts, acceptance, refusal }) {
 
   return (
     <div>
+      <h2>등업 신청 관리</h2>
       <table>
         <thead>
           <tr>
@@ -22,7 +23,7 @@ export default function GradeBoard({ applicationPosts, acceptance, refusal }) {
           </tr>
         </thead>
         <tbody>
-          {applicationPosts.map((post) => (
+          {applicationPosts.filter((post) => post.state === 'processing').map((post) => (
             <tr key={post.id}>
               <td>{post.applicant.name}</td>
               <td>{post.applicant.applicationGrade}</td>

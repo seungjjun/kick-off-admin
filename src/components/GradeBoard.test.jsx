@@ -14,6 +14,7 @@ describe('GradeBoard', () => {
         id: 1,
 
         reason: '테스트',
+        state: 'processing',
 
         applicant: {
           name: '황희찬',
