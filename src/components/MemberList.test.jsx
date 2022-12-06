@@ -76,7 +76,7 @@ describe('MemberList', () => {
     });
 
     it('전체 멤버 수를 확인할 수 있다.', () => {
-      screen.getByText('카페 멤버 수');
+      screen.getByText('카페 멤버 수 1');
     });
 
     it('멤버 목록을 확인할 수 있다.', () => {

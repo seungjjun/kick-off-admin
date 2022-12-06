@@ -142,7 +142,11 @@ export default function MemberList({
         )}
       </div>
       <div>
-        <p>카페 멤버 수</p>
+        <p>
+          카페 멤버 수
+          {' '}
+          {totalMembers.length}
+        </p>
         <Table>
           <thead>
             <tr>
