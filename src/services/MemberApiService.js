@@ -14,6 +14,14 @@ export default class MemberApiService {
     return data;
   }
 
+  async fetchTodaySignupNumber() {
+    const url = `${baseUrl}/admin-today-signup-users`;
+
+    const { data } = await axios.get(url);
+
+    return data;
+  }
+
   async changeGrade(checkedUserId, grade) {
     const url = `${baseUrl}/admin-users`;
 

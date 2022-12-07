@@ -36,6 +36,10 @@ const server = setupServer(
     ],
   }))),
 
+  rest.patch(`${baseUrl}/admin-users`, (req, res, ctx) => res(ctx.status(204))),
+
+  rest.delete(`${baseUrl}/admin-users`, (req, res, ctx) => res(ctx.status(204))),
+
   rest.get(`${baseUrl}/admin-user`, (req, res, ctx) => res(ctx.json({
     user: {
       id: 1,
@@ -116,6 +120,35 @@ const server = setupServer(
       return res(ctx.status(204));
     }
   }),
+
+  // rest.get(`${baseUrl}/admin-most-hit-posts`, async (req, res, ctx) => res(ctx.json({
+  //   users: [
+  //     { userId: 1 },
+
+  //     { userId: 2 },
+  //   ],
+
+  //   posts: [
+
+  //   ],
+  // }))),
+
+  // rest.get(`${baseUrl}/admin-today-signup-users`, async (req, res, ctx) => res(ctx.json({
+  //   users: [
+  //     { userId: 1 },
+  //     { userId: 2 },
+  //   ],
+  // }))),
+
+  // rest.get(`${baseUrl}/admin-today-posts`, async (req, res, ctx) => res(ctx.json({
+  //   posts: [
+  //     {},
+  //   ],
+  // }))),
+
+  // rest.get(`${baseUrl}/admin-today-comments`, async (req, res, ctx) => res(ctx.json({
+  //   commentsNumber: 2,
+  // }))),
 );
 
 export default server;
