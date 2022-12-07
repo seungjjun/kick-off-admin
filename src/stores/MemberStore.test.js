@@ -42,4 +42,14 @@ describe('MemberStore', () => {
       expect(user.user.grade).toBe('프로');
     });
   });
+
+  context('오늘 가입한 멤버의 수를 불러올 때', () => {
+    it('몇명이 오늘 가입했는지 확인할 수 있다.', async () => {
+      await memberStore.fetchTodaySignupNumber();
+
+      const { todaySignupUserNumber } = memberStore;
+
+      // expect(todaySignupUserNumber).toBe(2);
+    });
+  });
 });
