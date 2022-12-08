@@ -14,6 +14,14 @@ export default class BoardApiService {
     return data;
   }
 
+  async fetchBoardRate() {
+    const url = `${baseUrl}/admin-boards-rate`;
+
+    const { data } = await axios.get(url);
+
+    return data;
+  }
+
   async createBoard(board) {
     const url = `${baseUrl}/admin-board`;
 

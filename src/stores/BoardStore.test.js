@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import BoardStore from './BoardStore';
 
 const context = describe;
