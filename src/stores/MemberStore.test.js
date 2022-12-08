@@ -49,7 +49,7 @@ describe('MemberStore', () => {
 
       const { todaySignupUserNumber } = memberStore;
 
-      // expect(todaySignupUserNumber).toBe(2);
+      expect(todaySignupUserNumber).toBe(2);
     });
   });
 });

@@ -121,34 +121,54 @@ const server = setupServer(
     }
   }),
 
-  // rest.get(`${baseUrl}/admin-most-hit-posts`, async (req, res, ctx) => res(ctx.json({
-  //   users: [
-  //     { userId: 1 },
+  rest.get(`${baseUrl}/admin-most-hit-posts`, async (req, res, ctx) => res(ctx.json({
+    users: [
+      { userId: 1 },
 
-  //     { userId: 2 },
-  //   ],
+      { userId: 2 },
+    ],
 
-  //   posts: [
+    posts: [
+      {
+        id: 1,
+        postInformation: {
+          title: '조회수 제일 높은 게시글',
+        },
+        createdAt: '2022-12-01',
+        hit: 400,
+      },
+    ],
+  }))),
 
-  //   ],
-  // }))),
+  rest.get(`${baseUrl}/admin-today-posts`, async (req, res, ctx) => res(ctx.json({
+    posts: [
+      { id: 1 },
+      { id: 2 },
+    ],
+  }))),
 
-  // rest.get(`${baseUrl}/admin-today-signup-users`, async (req, res, ctx) => res(ctx.json({
-  //   users: [
-  //     { userId: 1 },
-  //     { userId: 2 },
-  //   ],
-  // }))),
+  rest.get(`${baseUrl}/admin-week-posts`, async (req, res, ctx) => res(ctx.json({
+    posts: [
+      { id: 1 },
+      { id: 2 },
+    ],
+  }))),
 
-  // rest.get(`${baseUrl}/admin-today-posts`, async (req, res, ctx) => res(ctx.json({
-  //   posts: [
-  //     {},
-  //   ],
-  // }))),
+  rest.get(`${baseUrl}/admin-today-signup-users`, async (req, res, ctx) => res(ctx.json({
+    users: [
+      { userId: 1 },
+      { userId: 2 },
+    ],
+  }))),
 
-  // rest.get(`${baseUrl}/admin-today-comments`, async (req, res, ctx) => res(ctx.json({
-  //   commentsNumber: 2,
-  // }))),
+  rest.get(`${baseUrl}/admin-today-comments`, async (req, res, ctx) => res(ctx.json({
+    commentsNumber: 2,
+  }))),
+
+  rest.get(`${baseUrl}/admin-week-comments`, async (req, res, ctx) => res(ctx.json({
+    commentsNumber: 3,
+    recommentsNumber: 4,
+  }))),
 );
 
 export default server;

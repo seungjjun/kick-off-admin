@@ -8,6 +8,8 @@ export default class BoardStore extends Store {
 
     this.boards = {};
 
+    this.boardRate = {};
+
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -18,6 +20,14 @@ export default class BoardStore extends Store {
     const data = await boardApiService.fetchBoard();
 
     this.boards = data.board;
+
+    this.publish();
+  }
+
+  async fetchBoardRate() {
+    const rate = await boardApiService.fetchBoardRate();
+
+    this.boardRate = rate;
 
     this.publish();
   }

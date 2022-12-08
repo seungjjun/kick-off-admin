@@ -8,7 +8,11 @@ import useMemberStore from '../hooks/useMemberStore';
 
 import useCommentStore from '../hooks/useCommentStore';
 
+import useBoardStore from '../hooks/useBoardStore';
+
 export default function DashBoardPage() {
+  const boardStore = useBoardStore();
+
   const postStore = usePostStore();
 
   const memberStore = useMemberStore();
@@ -16,11 +20,13 @@ export default function DashBoardPage() {
   const commentStore = useCommentStore();
 
   useEffect(() => {
+    boardStore.fetchBoardRate();
     postStore.fetchTodayPosts();
     memberStore.fetchTodaySignupNumber();
     commentStore.fetchTodayComment();
   }, []);
 
+  const { boardRate } = boardStore;
   const { todayCreatedPostsNumber } = postStore;
   const { todaySignupUserNumber } = memberStore;
   const { todayWrittenCommentsNumber } = commentStore;
@@ -34,6 +40,7 @@ export default function DashBoardPage() {
   return (
     <DashBoard
       statistics={statistics}
+      boardRate={boardRate}
     />
   );
 }
