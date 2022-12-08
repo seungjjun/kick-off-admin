@@ -11,7 +11,16 @@ export default class PostStore extends Store {
 
     this.postsByDate = {};
 
+    this.totalPostNumber = 0;
     this.todayCreatedPostsNumber = 0;
+  }
+
+  async fetchPosts() {
+    const data = await postApiService.fetchPosts();
+
+    this.totalPostNumber = data;
+
+    this.publish();
   }
 
   async fetchMostHitPosts() {

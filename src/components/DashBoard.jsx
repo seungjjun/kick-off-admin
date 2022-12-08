@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
+import useGradeStore from '../hooks/useGradeStore';
+import useMemberStore from '../hooks/useMemberStore';
+import usePostStore from '../hooks/usePostStore';
 
 import ChartPage from '../pages/ChartPage';
 
@@ -11,10 +14,9 @@ const Container = styled.div`
   padding: 1em;
   gap: 1em;
   grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "myInformation todayStatistics"
-  ". ."
+  "member todayStatistics"
   "lineChart pieChart";
   background-color: #F9F2ED;
 
@@ -35,10 +37,23 @@ const TodayStatistics = styled.div`
   grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "posts comments"
-  "members .";
-  grid-area: todayStatistics;
+  "members comments"
+  "posts posts";
+  gap: 1em;
   background-color: #FFF;
+  grid-area: todayStatistics;
+`;
+
+const Member = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "members grade"
+  "posts posts";
+  gap: 1em;
+  background-color: #F9F2ED;
+  grid-area: member;
 `;
 
 const BoardPieChart = styled.div`
@@ -52,7 +67,69 @@ const BoardPieChart = styled.div`
 const Posts = styled.div`
   border: 1px solid #CCC;
   grid-area: posts;
-  
+`;
+
+const Members = styled.div`
+  display: flex;
+  border-radius: 20px;
+  padding-left: 2em;
+  text-align: center;
+  align-items: center;
+  background-color: #FFF;
+  grid-area: members;
+
+  div:nth-child(2) {
+    margin-left: 2em;
+  }
+`;
+
+const Grade = styled.div`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  padding-left: 1.4em;
+  border-radius: 20px;
+  background-color: #FFF;
+  grid-area: grade;
+
+  div:nth-child(2) {
+    margin-left: 2em;
+  }
+`;
+
+const TotalPosts = styled.div`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  padding-left: 2.2em;
+  border-radius: 20px;
+  background-color: #FFF;
+  grid-area: posts;
+
+  div:nth-child(2) {
+    margin-left: 2em;
+  }
+`;
+
+const MemberIcon = styled.div`
+  width: 3em;
+  height: 3em;
+  background: url("https://user-images.githubusercontent.com/104769120/206388367-71a42f25-14e6-4c23-8b38-9cec769d82d9.png");
+  background-size: cover;
+`;
+
+const PostIcon = styled.div`
+  width: 3em;
+  height: 3em;
+  background: url("https://user-images.githubusercontent.com/104769120/206385522-ae016b0e-153d-40e8-9b61-42053c0bf6da.png");
+  background-size: cover;
+`;
+
+const GradeIcon = styled.div`
+  width: 3em;
+  height: 3em;
+  background: url("https://user-images.githubusercontent.com/104769120/206390635-91b74a6e-d44b-4e17-8ebe-b048315b32ac.png");
+  background-size: cover;
 `;
 
 const Comments = styled.div`
@@ -60,7 +137,7 @@ const Comments = styled.div`
   grid-area: comments;
 `;
 
-const Members = styled.div`
+const TodayMembers = styled.div`
   border: 1px solid #CCC;
   grid-area: members;
 `;
@@ -72,6 +149,12 @@ const BoardLineChart = styled.div`
 `;
 
 export default function DashBoard({ statistics, boardRate }) {
+  const postStore = usePostStore();
+
+  const gradeStore = useGradeStore();
+
+  const memberStore = useMemberStore();
+
   return (
     <Container>
       <MyInformation />
@@ -90,14 +173,46 @@ export default function DashBoard({ statistics, boardRate }) {
             {statistics.todayWrittenCommentsNumber}
           </p>
         </Comments>
-        <Members>
+        <TodayMembers>
           <p>
             오늘 가입 멤버 수
             {' '}
             {statistics.todaySignupUserNumber}
           </p>
-        </Members>
+        </TodayMembers>
       </TodayStatistics>
+      <Member>
+        <Members>
+          <MemberIcon />
+          <div>
+            <p>전체 멤버 수</p>
+            <p>
+              {memberStore.usersNumber}
+              명
+            </p>
+          </div>
+        </Members>
+        <Grade>
+          <GradeIcon />
+          <div>
+            <p>등업 승인 대기자 수</p>
+            <p>
+              {gradeStore.processingApplications}
+              명
+            </p>
+          </div>
+        </Grade>
+        <TotalPosts>
+          <PostIcon />
+          <div>
+            <p>전체 게시글 수</p>
+            <p>
+              {postStore.totalPostNumber}
+              개
+            </p>
+          </div>
+        </TotalPosts>
+      </Member>
       <BoardPieChart>
         <h2>게시판별 게시글 비중</h2>
         <PieBoardChart

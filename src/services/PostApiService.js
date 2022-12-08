@@ -6,6 +6,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class PostApiService {
+  async fetchPosts() {
+    const url = `${baseUrl}/admin-total-posts`;
+
+    const { data } = await axios.get(url);
+
+    return data;
+  }
+
   async fetchMostHitPosts() {
     const url = `${baseUrl}/admin-most-hit-posts`;
 

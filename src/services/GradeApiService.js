@@ -14,6 +14,14 @@ export default class GradeApiService {
     return data;
   }
 
+  async fetchProcessingApplication() {
+    const url = `${baseUrl}/admin-processing-posts`;
+
+    const { data } = await axios.get(url);
+
+    return data;
+  }
+
   async updateGrade(postId, applicationGrade, name) {
     const url = `${baseUrl}/admin-grade`;
 

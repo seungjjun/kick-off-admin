@@ -7,12 +7,22 @@ export default class GradeStore extends Store {
     super();
 
     this.applicationPosts = [];
+
+    this.processingApplications = 0;
   }
 
   async fetchApplication() {
     const data = await gradeApiService.fetchApplication();
 
     this.applicationPosts = data.applicationPosts;
+
+    this.publish();
+  }
+
+  async fetchProcessingApplication() {
+    const data = await gradeApiService.fetchProcessingApplication();
+
+    this.processingApplications = data;
 
     this.publish();
   }

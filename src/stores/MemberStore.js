@@ -12,6 +12,8 @@ export default class MemberStore extends Store {
 
     this.user = {};
 
+    this.usersNumber = 0;
+
     this.todaySignupUserNumber = 0;
 
     this.searchState = '';
@@ -21,6 +23,8 @@ export default class MemberStore extends Store {
     const data = await memberApiService.fetchUsers();
 
     this.members = data.members;
+
+    this.usersNumber = data.members.users.length;
 
     this.publish();
   }
