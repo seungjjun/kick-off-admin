@@ -10,6 +10,8 @@ import useCommentStore from '../hooks/useCommentStore';
 
 import useBoardStore from '../hooks/useBoardStore';
 
+import useGradeStore from '../hooks/useGradeStore';
+
 export default function DashBoardPage() {
   const boardStore = useBoardStore();
 
@@ -19,11 +21,16 @@ export default function DashBoardPage() {
 
   const commentStore = useCommentStore();
 
+  const gradeStore = useGradeStore();
+
   useEffect(() => {
     boardStore.fetchBoardRate();
     postStore.fetchTodayPosts();
+    postStore.fetchPosts();
     memberStore.fetchTodaySignupNumber();
+    memberStore.fetchUsers();
     commentStore.fetchTodayComment();
+    gradeStore.fetchProcessingApplication();
   }, []);
 
   const { boardRate } = boardStore;

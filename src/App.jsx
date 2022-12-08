@@ -18,22 +18,12 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const Body = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-const MenuList = styled.div`
-  display: inline-block;
-  height: 100%;
-  width: 23%;
-  background-color: #DAEAF1;
-`;
-
 const Content = styled.div`
-  display: inline-flex;
-  height: 100%;
-  width: 77%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1080px;
+  min-width: 1072px;
 `;
 
 export default function App() {
@@ -41,21 +31,17 @@ export default function App() {
     <Container>
       <Reset />
       <GlobalStyle />
-      <Body>
-        <MenuList>
-          <Menu />
-        </MenuList>
-        <Content>
-          <Routes>
-            <Route path="/" element={<DashBoardPage />} />
-            <Route path="manage-members" element={<MemberListPage />} />
-            <Route path="manage-levelup" element={<GradeBoardPage />} />
-            <Route path="manage-board" element={<ManageBoardPage />} />
-            <Route path="statistics" element={<StatisticsPage />} />
-            <Route path="/chart" element={<ChartPage />} />
-          </Routes>
-        </Content>
-      </Body>
+      <Menu />
+      <Content>
+        <Routes>
+          <Route path="/" element={<DashBoardPage />} />
+          <Route path="manage-members" element={<MemberListPage />} />
+          <Route path="manage-levelup" element={<GradeBoardPage />} />
+          <Route path="manage-board" element={<ManageBoardPage />} />
+          <Route path="statistics" element={<StatisticsPage />} />
+          <Route path="/chart" element={<ChartPage />} />
+        </Routes>
+      </Content>
     </Container>
   );
 }
