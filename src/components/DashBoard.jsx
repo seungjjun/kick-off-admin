@@ -1,7 +1,14 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
+
+import { useLocalStorage } from 'usehooks-ts';
+
+import useAdminStore from '../hooks/useAdminStore';
+
 import useGradeStore from '../hooks/useGradeStore';
+
 import useMemberStore from '../hooks/useMemberStore';
+
 import usePostStore from '../hooks/usePostStore';
 
 import ChartPage from '../pages/ChartPage';
@@ -18,18 +25,12 @@ const Container = styled.div`
   grid-template-areas:
   "member todayStatistics"
   "lineChart pieChart";
-  background-color: #F9F2ED;
 
   h2 {
     font-size: 1.2em;
     font-weight: bold;
     margin: 1em 0 1em 1em;
   }
-`;
-
-const MyInformation = styled.div`
-  grid-area: myInformation;
-  background-color: #FFF;
 `;
 
 const TodayStatistics = styled.div`
@@ -40,7 +41,6 @@ const TodayStatistics = styled.div`
   "members comments"
   "posts posts";
   gap: 1em;
-  background-color: #FFF;
   grid-area: todayStatistics;
 `;
 
@@ -49,33 +49,79 @@ const Member = styled.div`
   grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
   grid-template-areas:
-  "members grade"
-  "posts posts";
+  "myInformation members"
+  "posts grade"; 
   gap: 1em;
-  background-color: #F9F2ED;
   grid-area: member;
 `;
 
+const MyInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid #CCC;
+  grid-area: myInformation;
+
+  div:nth-child(3) {
+    margin-left: 12em;
+  }
+`;
+
+const ProfileImageBox = styled.div`
+  margin-top: 0.5em;
+  margin-left: 1em;
+  width: 85%;
+  height: 60%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+  }
+`;
+
+const Information = styled.div`
+  margin-top: 1em;
+  margin-left: 1em;
+
+  p:nth-child(2) {
+    margin-top: 0.4em;
+    color: #CCC;
+  }
+`;
+
+const LogoutIcon = styled.div`
+  width: 2em;
+  height: 2em;
+  border: none;
+  background: url('https://user-images.githubusercontent.com/104769120/206602188-0a45c804-226e-423e-8fdd-358a72b314c6.png');
+  background-size: cover;
+  cursor: pointer; 
+`;
+
 const BoardPieChart = styled.div`
+  border: 1px solid #CCC;
+  border-radius: 20px;
   grid-area: pieChart;
-  background-color: #FFF;
   h2 {
     margin-left: 1em;
   }
 `;
 
 const Posts = styled.div`
+  padding: 1em;
   border: 1px solid #CCC;
+  border-radius: 20px;
   grid-area: posts;
 `;
 
 const Members = styled.div`
   display: flex;
-  border-radius: 20px;
-  padding-left: 2em;
   text-align: center;
   align-items: center;
-  background-color: #FFF;
+  padding-left: 2em;
+  border: 1px solid #CCC;
+  border-radius: 20px;
   grid-area: members;
 
   div:nth-child(2) {
@@ -88,8 +134,8 @@ const Grade = styled.div`
   text-align: center;
   align-items: center;
   padding-left: 1.4em;
+  border: 1px solid #CCC;
   border-radius: 20px;
-  background-color: #FFF;
   grid-area: grade;
 
   div:nth-child(2) {
@@ -102,8 +148,8 @@ const TotalPosts = styled.div`
   text-align: center;
   align-items: center;
   padding-left: 2.2em;
+  border: 1px solid #CCC;
   border-radius: 20px;
-  background-color: #FFF;
   grid-area: posts;
 
   div:nth-child(2) {
@@ -133,55 +179,61 @@ const GradeIcon = styled.div`
 `;
 
 const Comments = styled.div`
+  padding: 1em;
   border: 1px solid #CCC;
+  border-radius: 20px;
   grid-area: comments;
 `;
 
 const TodayMembers = styled.div`
+  padding: 1em;
   border: 1px solid #CCC;
+  border-radius: 20px;
   grid-area: members;
 `;
 
 const BoardLineChart = styled.div`
-  grid-area: lineChart;
-  background-color: #FFF;
-  
+  border: 1px solid #CCC;
+  border-radius: 20px;
+  grid-area: lineChart;  
 `;
 
-export default function DashBoard({ statistics, boardRate }) {
+export default function DashBoard({ statistics, boardRate, navigate }) {
+  const [, setAccessToken] = useLocalStorage('accessToken', '');
+
+  const handleClickLogout = () => {
+    setAccessToken('');
+    navigate('/');
+  };
+
+  const adminStroe = useAdminStore();
+
   const postStore = usePostStore();
 
   const gradeStore = useGradeStore();
 
   const memberStore = useMemberStore();
 
+  const { admin } = adminStroe;
+
   return (
     <Container>
-      <MyInformation />
-      <TodayStatistics>
-        <Posts>
-          <p>
-            오늘 작성 게시글 수
-            {' '}
-            {statistics.todayCreatedPostsNumber}
-          </p>
-        </Posts>
-        <Comments>
-          <p>
-            오늘 작성 댓글 수
-            {' '}
-            {statistics.todayWrittenCommentsNumber}
-          </p>
-        </Comments>
-        <TodayMembers>
-          <p>
-            오늘 가입 멤버 수
-            {' '}
-            {statistics.todaySignupUserNumber}
-          </p>
-        </TodayMembers>
-      </TodayStatistics>
       <Member>
+        <MyInformation>
+          <ProfileImageBox>
+            <img src={admin.profileImage} alt="profileImage" />
+          </ProfileImageBox>
+          <Information>
+            <p>
+              {admin.name}
+              님
+            </p>
+            <p>{admin.identification}</p>
+          </Information>
+          <LogoutIcon
+            onClick={handleClickLogout}
+          />
+        </MyInformation>
         <Members>
           <MemberIcon />
           <div>
@@ -213,6 +265,29 @@ export default function DashBoard({ statistics, boardRate }) {
           </div>
         </TotalPosts>
       </Member>
+      <TodayStatistics>
+        <Posts>
+          <p>
+            오늘 작성 게시글 수
+            {' '}
+            {statistics.todayCreatedPostsNumber}
+          </p>
+        </Posts>
+        <Comments>
+          <p>
+            오늘 작성 댓글 수
+            {' '}
+            {statistics.todayWrittenCommentsNumber}
+          </p>
+        </Comments>
+        <TodayMembers>
+          <p>
+            오늘 가입 멤버 수
+            {' '}
+            {statistics.todaySignupUserNumber}
+          </p>
+        </TodayMembers>
+      </TodayStatistics>
       <BoardPieChart>
         <h2>게시판별 게시글 비중</h2>
         <PieBoardChart

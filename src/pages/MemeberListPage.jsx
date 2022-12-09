@@ -17,6 +17,8 @@ export default function MemberListPage() {
     const fetchMember = async () => {
       await memberStore.fetchUsers();
       memberStore.makeUserArray();
+
+      memberStore.reset();
     };
 
     fetchMember();

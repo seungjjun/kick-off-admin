@@ -3,6 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import { Reset } from 'styled-reset';
 
 import styled from 'styled-components';
+
+import { useEffect } from 'react';
+
+import { useLocalStorage } from 'usehooks-ts';
+
+import { adminApiService } from './services/AdminApiService';
+
 import Menu from './components/Menu';
 
 import DashBoardPage from './pages/DashBoardPage';
@@ -12,6 +19,8 @@ import ManageBoardPage from './pages/ManageBoardPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ChartPage from './pages/ChartPage';
 import GlobalStyle from './styles/GlobalStyle';
+import LoginFormPage from './pages/LoginFormPage';
+import useAdminStore from './hooks/useAdminStore';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -27,14 +36,29 @@ const Content = styled.div`
 `;
 
 export default function App() {
+  const [accessToken] = useLocalStorage('accessToken', '');
+
+  const adminStroe = useAdminStore();
+
+  useEffect(() => {
+    if (accessToken) {
+      adminApiService.setAccessToken(accessToken);
+
+      adminStroe.fetchAdmin();
+    }
+  }, [accessToken]);
+
   return (
     <Container>
       <Reset />
       <GlobalStyle />
-      <Menu />
+      {accessToken ? (
+        <Menu />
+      ) : null}
       <Content>
         <Routes>
-          <Route path="/" element={<DashBoardPage />} />
+          <Route path="/" element={<LoginFormPage />} />
+          <Route path="dashboard" element={<DashBoardPage />} />
           <Route path="manage-members" element={<MemberListPage />} />
           <Route path="manage-levelup" element={<GradeBoardPage />} />
           <Route path="manage-board" element={<ManageBoardPage />} />

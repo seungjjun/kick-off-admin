@@ -9,6 +9,7 @@ export default function StatisticsPage() {
 
   useEffect(() => {
     postStore.fetchMostHitPosts();
+    postStore.fetchMostLikedPosts();
   }, []);
 
   const { mostHitPosts } = postStore;
