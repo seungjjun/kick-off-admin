@@ -33,6 +33,12 @@ export default class PostStore extends Store {
     this.publish();
   }
 
+  async fetchMostLikedPosts() {
+    const data = await postApiService.fetchMostLikedPosts();
+
+    this.publish();
+  }
+
   async fetchTodayPosts() {
     const data = await postApiService.fetchTodayPosts();
 

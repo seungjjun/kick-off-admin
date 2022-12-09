@@ -6,6 +6,25 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class MemberApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
+  async login({ userId, password }) {
+    const url = `${baseUrl}/admin-session`;
+
+    const { data } = await axios.post(url, {
+      identification: userId,
+      password,
+    });
+
+    return data;
+  }
+
   async fetchUsers() {
     const url = `${baseUrl}/admin-users`;
 

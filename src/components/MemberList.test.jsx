@@ -95,7 +95,7 @@ describe('MemberList', () => {
     });
 
     it('멤버 선택 창을 확인할 수 있다.', () => {
-      screen.getByText('전체선택');
+      screen.getByText('전체 선택');
 
       screen.getByText('변경');
       screen.getByText('강제 탈퇴');
@@ -104,7 +104,7 @@ describe('MemberList', () => {
 
   context('멤버 등급을 변경할 경우', () => {
     it('등급을 변경하는 함수가 불리는 것을 확인할 수 있다.', () => {
-      fireEvent.click(screen.getByText('전체선택'));
+      fireEvent.click(screen.getByLabelText('전체 선택'));
 
       fireEvent.click(screen.getByText('프로'));
 
@@ -116,7 +116,7 @@ describe('MemberList', () => {
 
   context('멤버를 검색할 경우', () => {
     it('검색한 사용자의 정보를 확인할 수 있다.', () => {
-      fireEvent.change(screen.getByLabelText('멤버 검색'), {
+      fireEvent.change(screen.getByLabelText('아이디'), {
         target: { value: '피카츄' },
       });
 

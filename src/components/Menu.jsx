@@ -46,7 +46,7 @@ const HomeIcon = styled.div`
 
 const MemberIcon = styled.div`
   width: 3.3em;
-  height: 3.3em;
+  height: 3em;
   background: url("https://user-images.githubusercontent.com/104769120/206444163-2c1d2ef1-5d7b-494e-b0c0-3fae03479cc0.png");
   background-size: cover;
 `;
@@ -79,7 +79,7 @@ export default function Menu() {
         <MenuList>
           <Item>
             <div>
-              <Link to="/">
+              <Link to="/dashboard">
                 <HomeIcon />
                 홈 화면
               </Link>

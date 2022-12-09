@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import DashBoard from '../components/DashBoard';
 
 import usePostStore from '../hooks/usePostStore';
@@ -13,6 +14,8 @@ import useBoardStore from '../hooks/useBoardStore';
 import useGradeStore from '../hooks/useGradeStore';
 
 export default function DashBoardPage() {
+  const navigate = useNavigate();
+
   const boardStore = useBoardStore();
 
   const postStore = usePostStore();
@@ -48,6 +51,7 @@ export default function DashBoardPage() {
     <DashBoard
       statistics={statistics}
       boardRate={boardRate}
+      navigate={navigate}
     />
   );
 }

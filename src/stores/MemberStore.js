@@ -90,6 +90,12 @@ export default class MemberStore extends Store {
   get isSearchFail() {
     return this.searchState === 'fail';
   }
+
+  reset() {
+    this.user = {};
+
+    this.publish();
+  }
 }
 
 export const memberStore = new MemberStore();

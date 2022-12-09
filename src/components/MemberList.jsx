@@ -3,49 +3,147 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import styled from 'styled-components';
 
+import SearchMember from './SearchMember';
+
 const Container = styled.div`
-    /* display: flex;
-    flex-direction: column; */
+  width: 100%;
+  margin-top: 5em;
+`;
+
+const Title = styled.h2`
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-bottom: .5em;
+  border-bottom: 1px solid #CCC;
 `;
 
 const Table = styled.table`
-    /* display: flex;
-    flex-direction: column; */
-    padding-bottom: 1.2em;
-    border-bottom: 1px solid #CCC;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  width: 100%;
+  border-bottom: 1px solid #CCC;
+
+  td {
+    align-self: center;
+  }
+
+  th {
+    align-self: center;
+  }
+`;
+
+const Thead = styled.thead`
+  display: flex;
+  height: 3em;
+  background-color: #F5F5F5;
+`;
+
+const Tr = styled.tr`
+  display: flex;
+  width: 100%;
+`;
+
+const Values = styled.tr`
+  display: flex;
+  justify-content: space-between;
+  margin-block: 1em;
+  width: 100%;
+`;
+
+const CheckBox = styled.th`
+  width: 5%;
+`;
+
+const CheckBoxValue = styled.td`
+  width: 5%;
+  text-align: center;
+`;
+
+const Image = styled.th`
+  width: 10%;
+`;
+
+const ImageValue = styled.td`
+  text-align: end;
+  margin-right: 1em;
+  width: 10%;  
 `;
 
 const User = styled.th`
+  width: 55%;
+  text-align: start;
 `;
 
-const UserValue = styled.tr`
+const UserValue = styled.td`
+  align-items: center;
+  text-align: start;
+  width: 55%;
 `;
 
 const Grade = styled.th`
-    
+  width: 10%;
+`;
+
+const GradeValue = styled.td`
+  align-items: center;
+  text-align: center;
+  width: 10%;
 `;
 
 const PostNumber = styled.th`
+  width: 15%;
 `;
 
-const PostNumberValue = styled.tr`
+const PostNumberValue = styled.td`
+  align-items: center;
+  text-align: center;
+  width: 15%;
 `;
 
 const CommentNumber = styled.th`
+  width: 15%;
 `;
 
-const BasicProfileImage = styled.div`
+const CommentNumberValue = styled.td`
+  align-items: center;
+  text-align: center;
+  width: 15%;
+`;
+
+const BasicProfileImage = styled.img`
   width: 50px;
   height: 50px;
-  background: url('https://user-images.githubusercontent.com/104769120/203972344-e8de6516-2d57-4afd-b1ef-63a7471f3e5a.png');
-  background-size: cover;
   border-radius: 50%;
 `;
 
 const ProfileImage = styled.img`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; 
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; 
+`;
+
+const SelectMember = styled.div`
+  label {
+    margin-right: .5em;
+  }
+
+  span {
+    margin: 0 .3em;
+  }
+
+  button {
+    padding: .3em 1em;
+    margin: 0 .4em;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+  }
+`;
+
+const GradeSelect = styled.select`
+  margin: 0 .4em;
+  padding: .2em .4em;
+  border: 1px solid #CCC;
 `;
 
 export default function MemberList({
@@ -71,14 +169,6 @@ export default function MemberList({
     userAllCheck(checked);
   };
 
-  const handleChangeMember = (member) => {
-    members.setMember(member);
-  };
-
-  const handleClickSearch = () => {
-    members.searchMember(members.member);
-  };
-
   if (totalMembers.length === 0) {
     return (
       <p>로딩중...</p>
@@ -87,60 +177,11 @@ export default function MemberList({
 
   return (
     <Container>
-      <h2>전체 멤버 관리</h2>
-      <div>
-        <label htmlFor="input-memberId">멤버 검색</label>
-        <input
-          id="input-memberId"
-          type="text"
-          value={members.member}
-          onChange={(e) => handleChangeMember(e.target.value)}
-        />
-        <button type="button" onClick={handleClickSearch}>검색</button>
-        {Object.keys(user).length === 0 && !members.isSearchFail ? (
-          null
-        ) : members.isSearchFail ? (
-          <p>{members.errorMessage}</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th />
-                <th>닉네임 (아이디)</th>
-                <th>등급</th>
-                <th>게시글 수</th>
-                <th>댓글 수</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  {user.user.profileImage === null ? (
-                    <BasicProfileImage />
-                  ) : (
-                    <ProfileImage src={`${user.user.profileImage}`} alt="profileImage" />
-                  )}
-                </td>
-                <td>
-                  {user.user.name}
-                  (
-                  {user.user.identification}
-                  )
-                </td>
-                <td>
-                  {user.user.grade}
-                </td>
-                <td>
-                  {user.postNumber}
-                </td>
-                <td>
-                  {user.commentNumber}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-      </div>
+      <Title>전체 멤버 관리</Title>
+      <SearchMember
+        user={user}
+        members={members}
+      />
       <div>
         <p>
           카페 멤버 수
@@ -148,55 +189,55 @@ export default function MemberList({
           {totalMembers.length}
         </p>
         <Table>
-          <thead>
-            <tr>
-              <th>선택</th>
-              <th />
+          <Thead>
+            <Tr>
+              <CheckBox>선택</CheckBox>
+              <Image />
               <User>닉네임 (아이디)</User>
               <Grade>등급</Grade>
               <PostNumber>게시글 수</PostNumber>
               <CommentNumber>댓글 수</CommentNumber>
-            </tr>
-          </thead>
+            </Tr>
+          </Thead>
           <tbody>
             {totalMembers.map((user) => (
-              <UserValue key={user.user.id}>
-                <td>
+              <Values key={user.user.id}>
+                <CheckBoxValue>
                   <input
                     type="checkbox"
                     onChange={(e) => handleChangeCheck(e.target.checked, user.user.id)}
                     checked={selectUser.checkUsers.indexOf(user.user.id) >= 0}
                   />
-                </td>
-                <td>
+                </CheckBoxValue>
+                <ImageValue>
                   {user.user.profileImage === null ? (
-                    <BasicProfileImage />
+                    <BasicProfileImage src="https://user-images.githubusercontent.com/104769120/203972344-e8de6516-2d57-4afd-b1ef-63a7471f3e5a.png" alt="profileImage" />
                   ) : (
                     <ProfileImage src={`${user.user.profileImage}`} alt="profileImage" />
                   )}
-                </td>
-                <td>
+                </ImageValue>
+                <UserValue>
                   {user.user.name}
                   (
                   {user.user.identification}
                   )
-                </td>
-                <td>{user.user.grade}</td>
-                <td>{user.postNumber}</td>
-                <td>{user.commentNumber}</td>
-              </UserValue>
+                </UserValue>
+                <GradeValue>{user.user.grade}</GradeValue>
+                <PostNumberValue>{user.postNumber}</PostNumberValue>
+                <CommentNumberValue>{user.commentNumber}</CommentNumberValue>
+              </Values>
             ))}
           </tbody>
         </Table>
-        <div>
-          <label htmlFor="check-user">전체선택</label>
+        <SelectMember>
+          <label htmlFor="check-user">전체 선택</label>
           <input
             id="check-user"
             type="checkbox"
             onChange={(e) => handleChangeAllCheck(e.target.checked)}
           />
           <span>선택 멤버를</span>
-          <select
+          <GradeSelect
             id="select-grade"
             onChange={handleChangeGrade}
           >
@@ -205,11 +246,11 @@ export default function MemberList({
             <option value="프로">프로</option>
             <option value="월드클래스">월드클래스</option>
             <option value="스탭">스탭</option>
-          </select>
+          </GradeSelect>
           <span>(으)로</span>
           <button type="button" onClick={handleClickGrade}>변경</button>
           <button type="button" onClick={handleClickRemove}>강제 탈퇴</button>
-        </div>
+        </SelectMember>
       </div>
     </Container>
   );

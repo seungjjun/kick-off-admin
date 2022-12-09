@@ -12,6 +12,8 @@ const removeUser = jest.fn();
 
 const searchMember = jest.fn();
 
+const reset = jest.fn();
+
 let totalMembers = [];
 
 let errorMessage = '';
@@ -28,6 +30,7 @@ jest.mock('../hooks/useMemberStore', () => () => ({
   errorMessage,
   isSearchFail,
   user,
+  reset,
 }));
 
 const context = describe;
