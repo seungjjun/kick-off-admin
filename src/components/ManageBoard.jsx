@@ -6,7 +6,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import { useState } from 'react';
+
 import styled from 'styled-components';
+
 import useBoardStore from '../hooks/useBoardStore';
 
 const Container = styled.div`

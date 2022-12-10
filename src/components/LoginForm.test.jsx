@@ -54,7 +54,7 @@ describe('LoginForm', () => {
       });
 
       fireEvent.change(screen.getByPlaceholderText('비밀번호'), {
-        target: { value: 'Qwe1234!' },
+        target: { value: 'xxx' },
       });
 
       fireEvent.click(screen.getByText('로그인'));

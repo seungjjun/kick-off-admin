@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
 
-import { useLocalStorage } from 'usehooks-ts';
-
 import useAdminStore from '../hooks/useAdminStore';
 
 import useGradeStore from '../hooks/useGradeStore';
@@ -198,9 +196,9 @@ const BoardLineChart = styled.div`
   grid-area: lineChart;  
 `;
 
-export default function DashBoard({ statistics, boardRate, navigate }) {
-  const [, setAccessToken] = useLocalStorage('accessToken', '');
-
+export default function DashBoard({
+  statistics, boardRate, navigate, setAccessToken,
+}) {
   const handleClickLogout = () => {
     setAccessToken('');
     navigate('/');
@@ -231,6 +229,7 @@ export default function DashBoard({ statistics, boardRate, navigate }) {
             <p>{admin.identification}</p>
           </Information>
           <LogoutIcon
+            data-testid="logout"
             onClick={handleClickLogout}
           />
         </MyInformation>

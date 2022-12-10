@@ -42,12 +42,18 @@ describe('PostStore', () => {
   });
 
   context('일주일간 작성된 게시글을 불러올때', () => {
-    it('게시글의 개수를 확인할 수 있다.', async () => {
+    it('일주일간 작성된 게시글의 개수를 확인할 수 있다.', async () => {
       await postStore.fetchPostsByDate();
 
       const { postsByDate } = postStore;
 
-      // expect(postsByDate).toBe(2);
+      expect(postsByDate.posts.todayPostsNumber).toBe(2);
+      expect(postsByDate.posts.aDayAgoPostsNumber).toBe(1);
+      expect(postsByDate.posts.twoDaysAgoPostsNumber).toBe(3);
+      expect(postsByDate.posts.threeDaysAgoPostsNumber).toBe(7);
+      expect(postsByDate.posts.fourDaysAgoPostsNumber).toBe(1);
+      expect(postsByDate.posts.fiveDaysAgoPostsNumber).toBe(1);
+      expect(postsByDate.posts.sixDaysAgoPostsNumber).toBe(3);
     });
   });
 });

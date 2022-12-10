@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from 'usehooks-ts';
 import DashBoard from '../components/DashBoard';
 
 import usePostStore from '../hooks/usePostStore';
@@ -14,6 +15,8 @@ import useBoardStore from '../hooks/useBoardStore';
 import useGradeStore from '../hooks/useGradeStore';
 
 export default function DashBoardPage() {
+  const [, setAccessToken] = useLocalStorage('accessToken', '');
+
   const navigate = useNavigate();
 
   const boardStore = useBoardStore();
@@ -52,6 +55,7 @@ export default function DashBoardPage() {
       statistics={statistics}
       boardRate={boardRate}
       navigate={navigate}
+      setAccessToken={setAccessToken}
     />
   );
 }

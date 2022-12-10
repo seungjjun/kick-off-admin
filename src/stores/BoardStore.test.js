@@ -4,6 +4,7 @@ const context = describe;
 
 describe('BoardStore', () => {
   let boardStore;
+
   beforeEach(() => {
     boardStore = new BoardStore();
   });
@@ -18,6 +19,19 @@ describe('BoardStore', () => {
       expect(boards[1].boardName.value).toBe('EPL');
       expect(boards[2].boardName.value).toBe('LaLiga');
       expect(boards[3].boardName.value).toBe('토트넘');
+    });
+  });
+
+  context('각각의 게시판별로 게시글의 개수를 불러올 때', () => {
+    it('게시판별로 게시글이 작성된 개수를 알 수 있다.', async () => {
+      await boardStore.fetchBoardRate();
+
+      const { boardRate } = boardStore;
+
+      expect(boardRate.eplBoardValue).toBe(3);
+      expect(boardRate.laligaBoardValue).toBe(3);
+      expect(boardRate.serieaBoardValue).toBe(2);
+      expect(boardRate.bundesligaBoardValue).toBe(1);
     });
   });
 
@@ -57,7 +71,7 @@ describe('BoardStore', () => {
     });
 
     context('특정 게시판을 삭제할 경우', () => {
-      it('응답 코드 204를 확인한다.', async () => {
+      it('게시판을 삭제하는 함수가 정상적으로 실행되는것을 확인할 수 있다.', async () => {
         const board = { boardId: '1' };
 
         await boardStore.deleteBoard(board);

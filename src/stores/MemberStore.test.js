@@ -13,18 +13,18 @@ describe('MemberStore', () => {
     it('모든 멤버의 정보를 확인할 수 있다.', async () => {
       await memberStore.fetchUsers();
 
-      const { users } = memberStore.members[0];
+      const { users } = memberStore.members;
 
-      expect(users.grade).toBe('세미프로');
-      expect(users.name).toBe('훈이');
-      expect(users.identification).toBe('jel1y');
+      expect(users[0].grade).toBe('세미프로');
+      expect(users[0].name).toBe('훈이');
+      expect(users[0].identification).toBe('jel1y');
     });
 
     it('작성한 게시글 수와 댓글 수를 확인할 수 있다', async () => {
       await memberStore.fetchUsers();
 
-      const { postNumbers } = memberStore.members[0];
-      const { commentNumbers } = memberStore.members[0];
+      const { postNumbers } = memberStore.members;
+      const { commentNumbers } = memberStore.members;
 
       expect(postNumbers[0]).toBe(4);
       expect(commentNumbers[0]).toBe(6);
@@ -50,6 +50,23 @@ describe('MemberStore', () => {
       const { todaySignupUserNumber } = memberStore;
 
       expect(todaySignupUserNumber).toBe(2);
+    });
+  });
+
+  context('사용자의 등급을 변경할 때', () => {
+    it('사용자의 등급을 변경하는 함수가 정상적으로 실행된것을 확인할 수 있다.', async () => {
+      const checkedUserId = 1;
+      const grade = '프로';
+
+      await memberStore.changeGrade(checkedUserId, grade);
+    });
+  });
+
+  context('사용자를 제거할 때', () => {
+    it('사용자를 제거하는 함수가 정상적으로 실행된것을 확인할 수 있다.', async () => {
+      const checkedUserId = 1;
+
+      await memberStore.removeUser(checkedUserId);
     });
   });
 });
