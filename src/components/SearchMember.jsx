@@ -4,7 +4,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-    margin-top: 2em;
+    margin-block: 3em;
     width: 100%;
 `;
 
@@ -22,6 +22,7 @@ const SearchBox = styled.div`
     }
 
     button {
+        margin-left: 1em;
         padding: .5em 1em;
         border: none;
         border: 1px solid #D9D9D9;
