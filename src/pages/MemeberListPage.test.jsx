@@ -63,7 +63,13 @@ describe('MemberListPage', () => {
   });
 
   it('멤버 목록을 확인할 수 있다.', () => {
-    screen.getByText(/조규성/);
+    screen.getByText('조규성(gue sung)');
+    screen.getAllByText('프로');
+    screen.getByText('게시글 수');
+    screen.getByText('3');
+
+    screen.getByText('댓글 수');
+    screen.getByText('5');
   });
 
   context('사용자를 못찾았을 경우', () => {

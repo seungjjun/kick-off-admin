@@ -14,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #000;
   }
+  
+
+  button {
+    cursor: pointer;
+  }
 
 `;
 

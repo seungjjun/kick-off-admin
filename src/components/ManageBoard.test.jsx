@@ -3,13 +3,34 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import ManageBoard from './ManageBoard';
 
 const submit = jest.fn();
-
 const boardDelete = jest.fn();
+const setState = jest.fn();
 
-const context = describe;
+const changeBoardId = jest.fn();
+
+let isBlank = false;
+let isSelectBoard = false;
+let isExistentBoard = false;
+let isCreateSuccess = false;
+let isDeleteBoard = false;
+let errorMessage = '';
+let successMessage = '';
 
 let boardFormStore = {};
 
+jest.mock('../hooks/useBoardStore', () => () => ({
+  setState,
+  isBlank,
+  isSelectBoard,
+  isExistentBoard,
+  isCreateSuccess,
+  isDeleteBoard,
+  errorMessage,
+  successMessage,
+  changeBoardId,
+}));
+
+const context = describe;
 describe('ManageBoard', () => {
   beforeEach(() => {
     const boards = [
@@ -50,18 +71,12 @@ describe('ManageBoard', () => {
       },
     ];
 
-    const createBoard = {
-      errorMessage: '',
-      isBlank: false,
-      isSelectBoard: false,
-      isExistentBoard: false,
-    };
-
     boardFormStore = {
       changeBoardId: jest.fn(),
       changeBoardName: jest.fn(),
       changeNewBoardName: jest.fn(),
-      boardName: '',
+      changeClickBoardName: jest.fn(),
+      boardName: '손흥민',
       newBoardName: '카타르 월드컵',
     };
 
@@ -69,16 +84,23 @@ describe('ManageBoard', () => {
       boards={boards}
       boardFormStore={boardFormStore}
       submit={submit}
-      createBoard={createBoard}
       boardDelete={boardDelete}
     />);
   });
 
   context('게시판을 관리할 경우', () => {
+    isBlank = false;
+    isSelectBoard = false;
+    isExistentBoard = false;
+    isCreateSuccess = true;
+    isDeleteBoard = false;
+    errorMessage = '';
+    successMessage = '생성이 완료되었습니다.';
+
     it('전체 게시판 리스트를 확인할 수 있다.', () => {
-      screen.getByText('EPL');
-      screen.getByText('토트넘');
-      screen.getByText('LaLiga');
+      screen.getByText(/EPL/);
+      screen.getByText(/토트넘/);
+      screen.getByText(/LaLiga/);
     });
   });
 
@@ -88,9 +110,25 @@ describe('ManageBoard', () => {
         target: { value: '카타르 월드컵' },
       });
 
+      fireEvent.click(screen.getByText('+'));
+
       fireEvent.click(screen.getByText('추가'));
 
+      screen.getByText('생성이 완료되었습니다.');
+
       expect(submit).toBeCalled();
+    });
+  });
+
+  context('게시판을 삭제할 경우', () => {
+    it('게시판을 삭제하는 함수가 호출되는 것을 확인할 수 있다.', () => {
+      fireEvent.click(screen.getByText('┖ 토트넘'));
+
+      fireEvent.click(screen.getByText('+'));
+
+      fireEvent.click(screen.getByText('삭제'));
+
+      expect(boardDelete).toBeCalled();
     });
   });
 });

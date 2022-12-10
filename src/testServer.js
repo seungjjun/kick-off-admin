@@ -19,10 +19,16 @@ const server = setupServer(
     ],
   }))),
 
+  rest.get(`${baseUrl}/admin-processing-posts`, (req, res, ctx) => res(ctx.json({
+    data: 3,
+  }))),
+
   rest.get(`${baseUrl}/admin-users`, (req, res, ctx) => res(ctx.json({
-    members: [
-      {
-        users: {
+    members: {
+      postNumbers: [4],
+      commentNumbers: [6],
+      users: [
+        {
           grade: '세미프로',
           id: 1,
           identification: 'jel1y',
@@ -30,15 +36,29 @@ const server = setupServer(
           name: '훈이',
           profileImage: 'url',
         },
-        postNumbers: [4],
-        commentNumbers: [6],
-      },
-    ],
+      ],
+    },
   }))),
 
-  rest.patch(`${baseUrl}/admin-users`, (req, res, ctx) => res(ctx.status(204))),
+  rest.patch(`${baseUrl}/admin-users`, async (req, res, ctx) => {
+    const { usersId, grade } = await req.json();
 
-  rest.delete(`${baseUrl}/admin-users`, (req, res, ctx) => res(ctx.status(204))),
+    if (usersId === 1 && grade === '프로') {
+      return res(ctx.status(204));
+    }
+
+    return res(ctx.status(400));
+  }),
+
+  rest.delete(`${baseUrl}/admin-users`, async (req, res, ctx) => {
+    const { usersId } = await req.json();
+
+    if (usersId === 1) {
+      return res(ctx.status(204));
+    }
+
+    return res(ctx.status(400));
+  }),
 
   rest.get(`${baseUrl}/admin-user`, (req, res, ctx) => res(ctx.json({
     user: {
@@ -92,6 +112,13 @@ const server = setupServer(
         },
       ],
     },
+  }))),
+
+  rest.get(`${baseUrl}/admin-boards-rate`, async (req, res, ctx) => res(ctx.json({
+    eplBoardValue: 3,
+    laligaBoardValue: 3,
+    serieaBoardValue: 2,
+    bundesligaBoardValue: 1,
   }))),
 
   rest.post(`${baseUrl}/admin-board`, async (req, res, ctx) => {
@@ -148,10 +175,13 @@ const server = setupServer(
   }))),
 
   rest.get(`${baseUrl}/admin-week-posts`, async (req, res, ctx) => res(ctx.json({
-    posts: [
-      { id: 1 },
-      { id: 2 },
-    ],
+    todayPostsNumber: 2,
+    aDayAgoPostsNumber: 1,
+    twoDaysAgoPostsNumber: 3,
+    threeDaysAgoPostsNumber: 7,
+    fourDaysAgoPostsNumber: 1,
+    fiveDaysAgoPostsNumber: 1,
+    sixDaysAgoPostsNumber: 3,
   }))),
 
   rest.get(`${baseUrl}/admin-today-signup-users`, async (req, res, ctx) => res(ctx.json({
@@ -169,6 +199,83 @@ const server = setupServer(
     commentsNumber: 3,
     recommentsNumber: 4,
   }))),
+
+  rest.patch(`${baseUrl}/admin-grade`, async (req, res, ctx) => {
+    const { applicationPostId, grade, userName } = await req.json();
+
+    if (applicationPostId === 1 && grade === '프로' && userName === '짱구') {
+      return res(ctx.status(204));
+    }
+
+    return res(ctx.status(400));
+  }),
+
+  rest.delete(`${baseUrl}/admin-post`, async (req, res, ctx) => {
+    const { applicationPostId } = await req.json();
+
+    if (applicationPostId === 1) {
+      return res(ctx.status(204));
+    }
+
+    return res(ctx.status(400));
+  }),
+
+  rest.get(`${baseUrl}/admin`, async (req, res, ctx) => {
+    const accessToken = await req.headers.get('Authorization')
+      .substring('bearer '.length);
+
+    if (accessToken === 'jel1y') {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          identification: 'jel1y',
+          name: '노승준',
+        }),
+      );
+    }
+
+    return res(ctx.status(400));
+  }),
+
+  rest.post(`${baseUrl}/admin-session`, async (req, res, ctx) => {
+    const { identification, password } = await req.json();
+
+    if (identification === 'jel1y' && password === 'Qwe1234!') {
+      return res(ctx.json({
+        accessToekn: 'ACCESS.TOKEN',
+        name: '짱구',
+      }));
+    }
+
+    if (identification === '') {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          message: '아이디를 입력해주세요',
+        }),
+      );
+    }
+
+    if (password === '') {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          message: '비밀번호를 입력해주세요',
+        }),
+      );
+    }
+
+    if (identification !== 'jel1y' || password !== 'Qwe1234!') {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          message: '아이디 혹은 비밀번호가 맞지 않습니다.',
+        }),
+      );
+    }
+
+    return res(ctx.status(400));
+  }),
 );
 
 export default server;

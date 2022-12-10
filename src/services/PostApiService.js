@@ -22,15 +22,6 @@ export default class PostApiService {
     return data;
   }
 
-  async fetchMostLikedPosts() {
-    const url = `${baseUrl}/admin-most-like-posts`;
-
-    const { data } = await axios.get(url);
-
-    console.log(data);
-    // return data;
-  }
-
   async fetchTodayPosts() {
     const url = `${baseUrl}/admin-today-posts`;
 

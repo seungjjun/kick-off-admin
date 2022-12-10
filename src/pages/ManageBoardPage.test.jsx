@@ -16,6 +16,7 @@ let boardId = 0;
 
 let newBoardName = '';
 let errorMessage = '';
+let boardName = '';
 
 jest.mock('../hooks/useBoardStore', () => () => ({
   fetchBoard,
@@ -36,6 +37,7 @@ jest.mock('../hooks/useBoardFormStore', () => () => ({
   boardId,
   newBoardName,
   changeNewBoardName,
+  boardName,
 }));
 
 const context = describe;
@@ -68,6 +70,8 @@ describe('ManageBoardPage', () => {
     newBoardName = '이강인';
 
     errorMessage = '이미 존재하는 게시판입니다.';
+
+    boardName = '이강인';
 
     render(<ManageBoardPage />);
   });
