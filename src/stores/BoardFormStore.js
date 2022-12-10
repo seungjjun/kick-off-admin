@@ -9,6 +9,8 @@ export default class BoardFormStore extends Store {
     this.boardName = '';
 
     this.newBoardName = '';
+
+    this.clickedBoardName = '';
   }
 
   changeBoardId(boardId) {
@@ -29,10 +31,17 @@ export default class BoardFormStore extends Store {
     this.publish();
   }
 
+  changeClickBoardName(clickedBoardName) {
+    this.clickedBoardName = clickedBoardName;
+
+    this.publish();
+  }
+
   reset() {
     this.boardId = 0;
     this.boardName = '';
     this.newBoardName = '';
+    this.clickedBoardName = '';
 
     this.publish();
   }
