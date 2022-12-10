@@ -32,25 +32,17 @@ export default function ManageBoardPage() {
     const board = { boardId };
 
     boardStore.deleteBoard(board);
+
+    boardFormStore.reset();
   };
 
   const { boards } = boardStore;
-
-  const createBoard = {
-    errorMessage: boardStore.errorMessage,
-    successMessage: boardStore.successMessage,
-    isBlank: boardStore.isBlank,
-    isSelectBoard: boardStore.isSelectBoard,
-    isExistentBoard: boardStore.isExistentBoard,
-    isCreateSuccess: boardStore.isCreateSuccess,
-  };
 
   return (
     <ManageBoard
       boards={boards}
       boardFormStore={boardFormStore}
       submit={submit}
-      createBoard={createBoard}
       boardDelete={boardDelete}
     />
   );

@@ -12,6 +12,7 @@ export default class BoardStore extends Store {
 
     this.errorMessage = '';
     this.successMessage = '';
+    this.deleteBoardState = '';
 
     this.createBoardState = '';
   }
@@ -58,6 +59,11 @@ export default class BoardStore extends Store {
   }
 
   async deleteBoard(board) {
+    if (board.boardId === 2 || board.boardId === 3 || board.boardId === 4 || board.boardId === 5) {
+      this.changeDeleteBoardState('leagueBoard', { errorMessage: '리그 게시판은 지우지 못합니다.' });
+      return;
+    }
+
     await boardApiService.deleteBoard(board.boardId);
 
     this.fetchBoard();
@@ -77,6 +83,12 @@ export default class BoardStore extends Store {
     this.publish();
   }
 
+  changeDeleteBoardState(state, { errorMessage = '' } = {}) {
+    this.errorMessage = errorMessage;
+    this.deleteBoardState = state;
+    this.publish();
+  }
+
   get isBlank() {
     return this.createBoardState === 'blank';
   }
@@ -93,8 +105,13 @@ export default class BoardStore extends Store {
     return this.createBoardState === 'success';
   }
 
+  get isDeleteBoard() {
+    return this.deleteBoardState === 'leagueBoard';
+  }
+
   setState() {
     this.createBoardState = '';
+    this.deleteBoardState = '';
     this.publish();
   }
 }
