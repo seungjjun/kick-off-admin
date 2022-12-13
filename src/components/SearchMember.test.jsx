@@ -23,7 +23,7 @@ describe('SearchMember', () => {
 
     it('멤버 검색 페이지의 폼을 확인할 수 있다.', () => {
       screen.getByText('멤버 검색');
-      screen.getByLabelText('아이디');
+      screen.getByLabelText('닉네임');
       screen.getByText('검색');
     });
   });
@@ -52,7 +52,7 @@ describe('SearchMember', () => {
     });
 
     it('검색 함수가 불리는 것을 확인할 수 있다.', () => {
-      fireEvent.change(screen.getByLabelText('아이디'), {
+      fireEvent.change(screen.getByLabelText('닉네임'), {
         target: { value: '짱구' },
       });
 

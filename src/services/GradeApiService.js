@@ -33,13 +33,9 @@ export default class GradeApiService {
   }
 
   async refuseUpdate(postId) {
-    const url = `${baseUrl}/admin-post`;
+    const url = `${baseUrl}/admin-posts/${postId}`;
 
-    await axios.delete(url, {
-      data: {
-        applicationPostId: postId,
-      },
-    });
+    await axios.delete(url);
   }
 }
 

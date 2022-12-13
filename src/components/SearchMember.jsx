@@ -134,7 +134,7 @@ export default function SearchMember({ user, members }) {
     <Container>
       <SearchBox>
         <p>멤버 검색</p>
-        <label htmlFor="input-memberId">아이디</label>
+        <label htmlFor="input-memberId">닉네임</label>
         <input
           id="input-memberId"
           type="text"

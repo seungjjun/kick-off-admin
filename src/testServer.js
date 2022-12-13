@@ -121,7 +121,7 @@ const server = setupServer(
     bundesligaBoardValue: 1,
   }))),
 
-  rest.post(`${baseUrl}/admin-board`, async (req, res, ctx) => {
+  rest.post(`${baseUrl}/admin-boards`, async (req, res, ctx) => {
     const board = await req.json();
 
     if (board.parentId === '2' && board.boardName === '손흥민') {
@@ -140,7 +140,7 @@ const server = setupServer(
     return res(ctx.status(400));
   }),
 
-  rest.delete(`${baseUrl}/admin-board/:boardId`, async (req, res, ctx) => {
+  rest.delete(`${baseUrl}/admin-boards/:boardId`, async (req, res, ctx) => {
     const { boardId } = req.params;
 
     if (boardId === '1') {

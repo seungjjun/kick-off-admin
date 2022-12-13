@@ -6,6 +6,7 @@ export default class MemberStore extends Store {
     super();
 
     this.errorMessage = '';
+    this.successMessage = '';
 
     this.members = [];
     this.totalMembers = [];
@@ -17,6 +18,7 @@ export default class MemberStore extends Store {
     this.todaySignupUserNumber = 0;
 
     this.searchState = '';
+    this.removeState = '';
   }
 
   async fetchUsers() {
@@ -47,6 +49,8 @@ export default class MemberStore extends Store {
 
   async removeUser(checkedUserId) {
     await memberApiService.removeUser(checkedUserId);
+
+    this.changeRemoveState('success', { successMessage: '탈퇴 처리가 되었습니다.' });
 
     this.fetchUsers();
 
@@ -87,12 +91,25 @@ export default class MemberStore extends Store {
     this.publish();
   }
 
+  changeRemoveState(state, { successMessage = '' } = {}) {
+    this.successMessage = successMessage;
+
+    this.removeState = state;
+
+    this.publish();
+  }
+
   get isSearchFail() {
     return this.searchState === 'fail';
   }
 
+  get isRemoveSuccess() {
+    return this.removeState === 'success';
+  }
+
   reset() {
     this.user = {};
+    this.removeState = '';
 
     this.publish();
   }

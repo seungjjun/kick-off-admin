@@ -61,12 +61,11 @@ const PlusButtonBox = styled.div`
   }
 `;
 
-const LeagueBoardName = styled.span`
+const LeagueBoardName = styled.p`
   display: block;
   font-size: 1.25em;
   padding-top: 0.7em;
   font-weight: bold;
-
 `;
 
 const TeamBoardName = styled.span`
@@ -74,7 +73,7 @@ const TeamBoardName = styled.span`
   margin-left: 0.3em;
   padding-top: 1em;
 
-  color: ${(props) => (props.toggle ? '#CD2C2C' : 'blacak')};
+  color: ${(props) => (props.toggle ? '#CD2C2C' : '#000')};
 `;
 
 const PlayerBoardName = styled.span`
@@ -82,7 +81,7 @@ const PlayerBoardName = styled.span`
   margin-left: 1.5em;
   padding-top: 1em;
 
-  color: ${(props) => (props.toggle ? '#CD2C2C' : 'black')};
+  color: ${(props) => (props.toggle ? '#CD2C2C' : '#000')};
 `;
 
 const ManagementMenu = styled.div`
@@ -179,11 +178,13 @@ export default function ManageBoard({
               {boards.filter((board) => board.id !== 1).map((board) => (
                 board.parentId === null ? (
                   <li key={board.id}>
-                    <LeagueBoardName
-                      onClick={() => handleClickBoard(board.id, board.boardName.value)}
-                    >
-                      {board.boardName.value}
-                    </LeagueBoardName>
+                    <a>
+                      <LeagueBoardName
+                        onClick={() => handleClickBoard(board.id, board.boardName.value)}
+                      >
+                        {board.boardName.value}
+                      </LeagueBoardName>
+                    </a>
                     {boards.filter((board) => board.deleted === false).map((teamBoard) => (
                       teamBoard.parentId === board.id ? (
                         <p key={teamBoard.id}>
