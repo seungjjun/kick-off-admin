@@ -23,7 +23,7 @@ export default class BoardApiService {
   }
 
   async createBoard(board) {
-    const url = `${baseUrl}/admin-board`;
+    const url = `${baseUrl}/admin-boards`;
 
     const data = await axios.post(url, {
       parentId: board.boardId,
@@ -34,7 +34,7 @@ export default class BoardApiService {
   }
 
   async deleteBoard(boardId) {
-    const url = `${baseUrl}/admin-board/${boardId}`;
+    const url = `${baseUrl}/admin-boards/${boardId}`;
 
     await axios.delete(url);
   }

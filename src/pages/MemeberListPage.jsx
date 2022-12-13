@@ -56,6 +56,8 @@ export default function MemberListPage() {
 
   const removeUser = async () => {
     await memberStore.removeUser(checkUsers);
+
+    setCheckUsers([]);
   };
 
   const userAllCheck = (checked) => {

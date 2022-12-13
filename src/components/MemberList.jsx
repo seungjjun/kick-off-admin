@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import styled from 'styled-components';
+import useMemberStore from '../hooks/useMemberStore';
 
 import SearchMember from './SearchMember';
 
@@ -149,6 +150,8 @@ const GradeSelect = styled.select`
 export default function MemberList({
   totalMembers, selectUser, changeGrade, userAllCheck, members, user, removeUser,
 }) {
+  const memberStore = useMemberStore();
+
   const handleChangeCheck = (checked, userId) => {
     selectUser.isChecked(checked, userId);
   };
@@ -204,6 +207,7 @@ export default function MemberList({
               <Values key={user.user.id}>
                 <CheckBoxValue>
                   <input
+                    id="check-user"
                     type="checkbox"
                     onChange={(e) => handleChangeCheck(e.target.checked, user.user.id)}
                     checked={selectUser.checkUsers.indexOf(user.user.id) >= 0}
@@ -232,7 +236,7 @@ export default function MemberList({
         <SelectMember>
           <label htmlFor="check-user">전체 선택</label>
           <input
-            id="check-user"
+            id="check-users"
             type="checkbox"
             onChange={(e) => handleChangeAllCheck(e.target.checked)}
           />
@@ -250,6 +254,11 @@ export default function MemberList({
           <span>(으)로</span>
           <button type="button" onClick={handleClickGrade}>변경</button>
           <button type="button" onClick={handleClickRemove}>강제 탈퇴</button>
+          {memberStore.isRemoveSuccess ? (
+            <p>{memberStore.successMessage}</p>
+          ) : (
+            null
+          )}
         </SelectMember>
       </div>
     </Container>
