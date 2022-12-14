@@ -36,36 +36,28 @@ describe('ManageBoard', () => {
     const boards = [
       {
         id: 1,
-        boardName: {
-          value: '전체 게시판',
-        },
-        parentId: null,
+        boardName: '전체 게시판',
+        parentId: 0,
         deleted: false,
       },
 
       {
         id: 2,
-        boardName: {
-          value: 'EPL',
-        },
-        parentId: null,
+        boardName: 'EPL',
+        parentId: 0,
         deleted: false,
       },
 
       {
         id: 3,
-        boardName: {
-          value: 'LaLiga',
-        },
-        parentId: null,
+        boardName: 'LaLiga',
+        parentId: 0,
         deleted: false,
       },
 
       {
         id: 4,
-        boardName: {
-          value: '토트넘',
-        },
+        boardName: '토트넘',
         parentId: 2,
         deleted: false,
       },

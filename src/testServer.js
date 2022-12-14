@@ -276,6 +276,16 @@ const server = setupServer(
 
     return res(ctx.status(400));
   }),
+
+  rest.delete(`${baseUrl}/admin-posts/:postId`, async (req, res, ctx) => {
+    const { postId } = req.params;
+
+    if (postId === '1') {
+      return res(ctx.status(204));
+    }
+
+    return res(ctx.status(400));
+  }),
 );
 
 export default server;
