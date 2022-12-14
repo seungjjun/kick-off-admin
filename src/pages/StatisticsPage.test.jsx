@@ -25,9 +25,7 @@ describe('StatisticsPage', () => {
         },
         createdAt: '2022-12-07',
         hit: 4700,
-        userId: {
-          userId: 1,
-        },
+        userId: 1,
       },
     ];
 

@@ -118,7 +118,7 @@ export default function Statistics({ mostHitPosts, users }) {
             <Values key={post.id}>
               <RankValue>{index + 1}</RankValue>
               <PostTitleValue>{post.postInformation.title}</PostTitleValue>
-              <AuthorValue>{users.find((user) => user.id === post.userId.userId).name}</AuthorValue>
+              <AuthorValue>{users.find((user) => user.id === post.userId).name}</AuthorValue>
               <CreatedDateValue>{post.createdAt}</CreatedDateValue>
               <HitValue>{post.hit}</HitValue>
             </Values>

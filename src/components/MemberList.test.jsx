@@ -116,7 +116,7 @@ describe('MemberList', () => {
 
   context('멤버를 검색할 경우', () => {
     it('검색한 사용자의 정보를 확인할 수 있다.', () => {
-      fireEvent.change(screen.getByLabelText('아이디'), {
+      fireEvent.change(screen.getByLabelText('닉네임'), {
         target: { value: '피카츄' },
       });
 

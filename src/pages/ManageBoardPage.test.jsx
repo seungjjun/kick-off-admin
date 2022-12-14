@@ -47,19 +47,15 @@ describe('ManageBoardPage', () => {
     boards = [
       {
         id: 2,
-        boardName: {
-          value: '전체 게시판',
-        },
-        parentId: null,
+        boardName: '전체 게시판',
+        parentId: 0,
         deleted: false,
       },
 
       {
         id: 3,
-        boardName: {
-          value: 'Bundesliga',
-        },
-        parentId: null,
+        boardName: 'Bundesliga',
+        parentId: 0,
         deleted: false,
       },
 

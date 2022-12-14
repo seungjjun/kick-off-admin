@@ -48,7 +48,7 @@ describe('GradeStore', () => {
 
   context('사용자가 신청한 등업신청글을 거절할 때', () => {
     it('등업 신청을 거절하는 함수가 정상적으로 실행된것을 확인할 수 있다.', async () => {
-      const postId = 1;
+      const postId = '1';
 
       await gradeStore.refuseUpdate(postId);
     });

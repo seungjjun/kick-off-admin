@@ -176,13 +176,13 @@ export default function ManageBoard({
           <MenuList>
             <div>
               {boards.filter((board) => board.id !== 1).map((board) => (
-                board.parentId === null ? (
+                board.parentId === 0 ? (
                   <li key={board.id}>
                     <a>
                       <LeagueBoardName
-                        onClick={() => handleClickBoard(board.id, board.boardName.value)}
+                        onClick={() => handleClickBoard(board.id, board.boardName)}
                       >
-                        {board.boardName.value}
+                        {board.boardName}
                       </LeagueBoardName>
                     </a>
                     {boards.filter((board) => board.deleted === false).map((teamBoard) => (
@@ -192,12 +192,12 @@ export default function ManageBoard({
                             toggle={isSelected === teamBoard.id}
                             onClick={() => handleClickBoard(
                               teamBoard.id,
-                              teamBoard.boardName.value,
+                              teamBoard.boardName,
                             )}
                           >
                             ┖
                             {' '}
-                            {teamBoard.boardName.value}
+                            {teamBoard.boardName}
                           </TeamBoardName>
                           {boards.filter((board) => board.deleted === false).map((playerBoard) => (
                             playerBoard.parentId === teamBoard.id ? (
@@ -206,12 +206,12 @@ export default function ManageBoard({
                                 key={playerBoard.id}
                                 onClick={() => handleClickBoard(
                                   playerBoard.id,
-                                  playerBoard.boardName.value,
+                                  playerBoard.boardName,
                                 )}
                               >
                                 ┖
                                 {' '}
-                                {playerBoard.boardName.value}
+                                {playerBoard.boardName}
                               </PlayerBoardName>
                             ) : null
                           ))}
