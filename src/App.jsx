@@ -77,7 +77,7 @@ export default function App() {
           </Content>
         </>
       ) : (
-        <Register />
+        <LoginFormPage />
       )}
     </Container>
   );
