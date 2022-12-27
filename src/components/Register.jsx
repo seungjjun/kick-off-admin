@@ -5,7 +5,7 @@ import useAdminStore from '../hooks/useAdminStore';
 export default function Register() {
   const adminStore = useAdminStore();
 
-  const { register, handleSubmit, formState: { errors } } = useForm({ reValidateMode: 'onSubmit' });
+  const { register, handleSubmit } = useForm({ reValidateMode: 'onSubmit' });
 
   const make = async (data) => {
     const {
@@ -24,12 +24,14 @@ export default function Register() {
         id="input-name"
         type="text"
         placeholder="닉네임 (2 ~ 10자)"
+        {...register('name')}
       />
       <label htmlFor="input-identification">아이디</label>
       <input
         id="input-identification"
         type="text"
         placeholder="아이디는 4 ~ 16자의 영문 소문자와 숫자로만 입력해주세요."
+        {...register('identification')}
       />
       <label
         htmlFor="input-password"
@@ -40,6 +42,7 @@ export default function Register() {
         id="input-password"
         type="password"
         placeholder="8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 합니다."
+        {...register('password')}
       />
       <button
         id="signup"
