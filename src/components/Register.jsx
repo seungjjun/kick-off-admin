@@ -12,9 +12,11 @@ export default function Register() {
       name, identification, password,
     } = data;
 
-    await adminStore.register({
-      name, identification, password,
-    });
+    console.log(name);
+    console.log(identification);
+    console.log(password);
+
+    await adminStore.register();
   };
 
   return (

@@ -14,14 +14,13 @@ export default class AdminApiService {
     this.accessToken = accessToken;
   }
 
-  async register({
-    name, identification, password,
-  }) {
-    const url = `${baseUrl}/admin-register`;
+  async register() {
+    const url = `${baseUrl}/admin-backdoor/setup-account`;
 
-    await axios.post(url, {
-      name, identification, password,
-    });
+    await axios.get(url);
+    // await axios.post(url, {
+    //   name, identification, password,
+    // });
   }
 
   async login({ userId, password }) {

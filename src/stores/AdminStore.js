@@ -15,12 +15,8 @@ export default class AdminStore extends Store {
     this.adminState = '';
   }
 
-  async register({
-    name, identification, password,
-  }) {
-    await adminApiService.register({
-      name, identification, password,
-    });
+  async register() {
+    await adminApiService.register();
 
     this.publish();
   }
