@@ -57,6 +57,9 @@ export default function MemberListPage() {
   const removeUser = async () => {
     await memberStore.removeUser(checkUsers);
 
+    await memberStore.fetchUsers();
+    memberStore.makeUserArray();
+
     setCheckUsers([]);
   };
 

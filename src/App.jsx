@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Route, Routes } from 'react-router-dom';
 
 import { Reset } from 'styled-reset';
@@ -10,6 +11,8 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { adminApiService } from './services/AdminApiService';
 
+import { postApiService } from './services/PostApiService';
+
 import Menu from './components/Menu';
 
 import DashBoardPage from './pages/DashBoardPage';
@@ -21,6 +24,7 @@ import ChartPage from './pages/ChartPage';
 import GlobalStyle from './styles/GlobalStyle';
 import LoginFormPage from './pages/LoginFormPage';
 import useAdminStore from './hooks/useAdminStore';
+import NotAdminPage from './pages/NotAdminPage';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -43,6 +47,7 @@ export default function App() {
   useEffect(() => {
     if (accessToken) {
       adminApiService.setAccessToken(accessToken);
+      postApiService.setAccessToken(accessToken);
 
       adminStroe.fetchAdmin();
     }
@@ -52,20 +57,26 @@ export default function App() {
     <Container>
       <Reset />
       <GlobalStyle />
-      {accessToken ? (
-        <Menu />
-      ) : null}
-      <Content>
-        <Routes>
-          <Route path="/" element={<LoginFormPage />} />
-          <Route path="dashboard" element={<DashBoardPage />} />
-          <Route path="manage-members" element={<MemberListPage />} />
-          <Route path="manage-levelup" element={<GradeBoardPage />} />
-          <Route path="manage-board" element={<ManageBoardPage />} />
-          <Route path="statistics" element={<StatisticsPage />} />
-          <Route path="/chart" element={<ChartPage />} />
-        </Routes>
-      </Content>
+      {adminStroe.isAdmin ? (
+        <NotAdminPage />
+      ) : accessToken && !adminStroe.isAdmin ? (
+        <>
+          <Menu />
+          <Content>
+            <Routes>
+              <Route path="/" element={<LoginFormPage />} />
+              <Route path="dashboard" element={<DashBoardPage />} />
+              <Route path="manage-members" element={<MemberListPage />} />
+              <Route path="manage-levelup" element={<GradeBoardPage />} />
+              <Route path="manage-board" element={<ManageBoardPage />} />
+              <Route path="statistics" element={<StatisticsPage />} />
+              <Route path="chart" element={<ChartPage />} />
+            </Routes>
+          </Content>
+        </>
+      ) : (
+        <LoginFormPage />
+      )}
     </Container>
   );
 }

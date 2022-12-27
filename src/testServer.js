@@ -146,6 +146,8 @@ const server = setupServer(
     if (boardId === '1') {
       return res(ctx.status(204));
     }
+
+    return res(ctx.status(400));
   }),
 
   rest.get(`${baseUrl}/admin-most-hit-posts`, async (req, res, ctx) => res(ctx.json({

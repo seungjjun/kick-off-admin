@@ -13,6 +13,9 @@ export default class PostStore extends Store {
 
     this.totalPostNumber = 0;
     this.todayCreatedPostsNumber = 0;
+
+    this.adminErrorMessge = '';
+    this.adminState = '';
   }
 
   async fetchPosts() {
@@ -42,11 +45,25 @@ export default class PostStore extends Store {
   }
 
   async fetchPostsByDate() {
-    const posts = await postApiService.fetchPostsByDate();
+    try {
+      const posts = await postApiService.fetchPostsByDate();
 
-    this.postsByDate = { posts };
+      this.postsByDate = { posts };
+    } catch (e) {
+      const { message } = e.response.data;
 
+      this.changeAdminState('notAdmin', { errorMessage: message });
+    }
+  }
+
+  changeAdminState(state, { errorMessage = '' } = {}) {
+    this.adminErrorMessge = errorMessage;
+    this.adminState = state;
     this.publish();
+  }
+
+  get isAdmin() {
+    return this.adminState === 'notAdmin';
   }
 }
 
