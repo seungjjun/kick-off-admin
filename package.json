@@ -2,26 +2,26 @@
     "name": "kick-off-admin",
     "version": "1.0.0",
     "description": "KiCK OFF Admin",
-    "main": "index.js",
     "scripts": {
         "start": "parcel index.html --port 8081",
         "test": "jest",
         "watch:test": "jest --watchAll",
         "codeceptjs": "codeceptjs run --steps",
         "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
-        "codeceptjs:ui": "codecept-ui --app"
+        "codeceptjs:ui": "codecept-ui --app",
+        "build": "parcel build index.html --public-url ./"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/seungjjun/kick-off-admin.git"
     },
     "keywords": [],
-    "author": "",
+    "author": "SeungJun Noh",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/seungjjun/kick-off-admin/issues"
     },
-    "homepage": "https://github.com/seungjjun/kick-off-admin#readme",
+    "homepage": "https://github.com/seungjjun/kick-off-admin",
     "devDependencies": {
         "@codeceptjs/configure": "^0.10.0",
         "@codeceptjs/ui": "^0.4.7",
