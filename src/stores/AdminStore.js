@@ -10,6 +10,9 @@ export default class AdminStore extends Store {
 
     this.loginState = '';
     this.loginErrorMessge = '';
+
+    this.adminErrorMessge = '';
+    this.adminState = '';
   }
 
   async login({ userId, password }) {
@@ -28,17 +31,35 @@ export default class AdminStore extends Store {
   }
 
   async fetchAdmin() {
-    const data = await adminApiService.fetchAdmin();
+    try {
+      const data = await adminApiService.fetchAdmin();
 
-    this.admin = data;
+      this.admin = data;
+    } catch (e) {
+      const { message } = e.response.data;
 
-    this.publish();
+      this.changeAdminState('notAdmin', { errorMessage: message });
+    }
   }
 
   changeLoginState(state, { errorMessage = '' } = {}) {
     this.loginErrorMessge = errorMessage;
     this.loginState = state;
     this.publish();
+  }
+
+  changeAdminState(state, { errorMessage = '' } = {}) {
+    this.adminErrorMessge = errorMessage;
+    this.adminState = state;
+    this.publish();
+  }
+
+  get isAdmin() {
+    return this.adminState === 'notAdmin';
+  }
+
+  setAdminState() {
+    this.adminState = '';
   }
 
   get isLoginFail() {

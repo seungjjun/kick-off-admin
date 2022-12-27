@@ -6,6 +6,14 @@ import config from '../config';
 const baseUrl = config.apiBaseUrl;
 
 export default class PostApiService {
+  constructor() {
+    this.accessToken = '';
+  }
+
+  setAccessToken(accessToken) {
+    this.accessToken = accessToken;
+  }
+
   async fetchPosts() {
     const url = `${baseUrl}/admin-total-posts`;
 
@@ -33,7 +41,11 @@ export default class PostApiService {
   async fetchPostsByDate() {
     const url = `${baseUrl}/admin-week-posts`;
 
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    });
 
     return data;
   }

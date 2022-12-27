@@ -25,7 +25,7 @@ const Form = styled.form`
 `;
 
 const Title = styled.div`
-display: flex;
+  display: flex;
   margin-bottom: 2em;
   width: 15em;
   height: 10em;
