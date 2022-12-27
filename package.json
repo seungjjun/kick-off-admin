@@ -21,7 +21,7 @@
     "bugs": {
         "url": "https://github.com/seungjjun/kick-off-admin/issues"
     },
-    "homepage": "https://github.com/seungjjun/kick-off-admin",
+    "homepage": "https://github.com/seungjjun/kick-off-admin/",
     "devDependencies": {
         "@codeceptjs/configure": "^0.10.0",
         "@codeceptjs/ui": "^0.4.7",

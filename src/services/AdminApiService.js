@@ -14,6 +14,16 @@ export default class AdminApiService {
     this.accessToken = accessToken;
   }
 
+  async register({
+    name, identification, password,
+  }) {
+    const url = `${baseUrl}/admin`;
+
+    await axios.post(url, {
+      name, identification, password,
+    });
+  }
+
   async login({ userId, password }) {
     const url = `${baseUrl}/admin-session`;
 

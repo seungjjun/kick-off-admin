@@ -64,38 +64,80 @@ export default function LoginForm({ submit }) {
     submit(data);
   };
 
+  const make = async (data) => {
+    const {
+      name, identification, password,
+    } = data;
+
+    await adminStore.register({
+      name, identification, password,
+    });
+  };
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Title />
-      <div>
-        <InputId
-          id="input-userId"
+    <>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Title />
+        <div>
+          <InputId
+            id="input-userId"
+            type="text"
+            placeholder="아이디"
+            error={errors.userId}
+            {...register('userId', {
+              required: { value: true, message: '아이디를 입력해주세요' },
+            })}
+          />
+          {errors.userId ? (
+            <Error>{errors.userId.message}</Error>
+          ) : null}
+          <InputPassword
+            id="input-password"
+            type="password"
+            placeholder="비밀번호"
+            error={errors.password}
+            {...register('password', {
+              required: { value: true, message: '비밀번호를 입력해주세요' },
+            })}
+          />
+          {errors.password ? (
+            <Error>{errors.password.message}</Error>
+          ) : adminStore.isLoginFail ? (
+            <Error>{adminStore.loginErrorMessge}</Error>
+          ) : null}
+          <LoginButton type="submit">로그인</LoginButton>
+        </div>
+      </Form>
+      <form onSubmit={handleSubmit(make)}>
+        <label htmlFor="input-name">닉네임</label>
+        <input
+          id="input-name"
           type="text"
-          placeholder="아이디"
-          error={errors.userId}
-          {...register('userId', {
-            required: { value: true, message: '아이디를 입력해주세요' },
-          })}
+          placeholder="닉네임 (2 ~ 10자)"
         />
-        {errors.userId ? (
-          <Error>{errors.userId.message}</Error>
-        ) : null}
-        <InputPassword
+        <label htmlFor="input-identification">아이디</label>
+        <input
+          id="input-identification"
+          type="text"
+          placeholder="아이디는 4 ~ 16자의 영문 소문자와 숫자로만 입력해주세요."
+        />
+        <label
+          htmlFor="input-password"
+        >
+          비밀번호
+        </label>
+        <input
           id="input-password"
           type="password"
-          placeholder="비밀번호"
-          error={errors.password}
-          {...register('password', {
-            required: { value: true, message: '비밀번호를 입력해주세요' },
-          })}
+          placeholder="8글자 이상의 영문(대소문자), 숫자, 특수문자가 모두 포함되어야 합니다."
         />
-        {errors.password ? (
-          <Error>{errors.password.message}</Error>
-        ) : adminStore.isLoginFail ? (
-          <Error>{adminStore.loginErrorMessge}</Error>
-        ) : null}
-        <LoginButton type="submit">로그인</LoginButton>
-      </div>
-    </Form>
+        <button
+          id="signup"
+          type="submit"
+        >
+          회원가입
+        </button>
+      </form>
+    </>
   );
 }
