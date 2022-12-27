@@ -15,7 +15,7 @@ export default class AdminApiService {
   }
 
   async register() {
-    const url = `${baseUrl}/admin-backdoor/setup-account`;
+    const url = `${baseUrl}/admin-backdoor/setup-board`;
 
     await axios.get(url);
     // await axios.post(url, {
