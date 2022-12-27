@@ -17,7 +17,7 @@ export default class AdminApiService {
   async register({
     name, identification, password,
   }) {
-    const url = `${baseUrl}/admin`;
+    const url = `${baseUrl}/admin-register`;
 
     await axios.post(url, {
       name, identification, password,
