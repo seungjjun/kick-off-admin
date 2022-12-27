@@ -14,6 +14,8 @@ export default function LoginFormPage() {
   const adminStore = useAdminStore();
 
   const submit = async (data) => {
+    navigate('/register');
+
     const { userId, password } = data;
 
     const accessToken = await adminStore.login({ userId, password });
