@@ -14,15 +14,6 @@ export default class AdminApiService {
     this.accessToken = accessToken;
   }
 
-  async register() {
-    const url = `${baseUrl}/admin-backdoor/setup-board`;
-
-    await axios.get(url);
-    // await axios.post(url, {
-    //   name, identification, password,
-    // });
-  }
-
   async login({ userId, password }) {
     const url = `${baseUrl}/admin-session`;
 

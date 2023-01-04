@@ -25,7 +25,6 @@ import GlobalStyle from './styles/GlobalStyle';
 import LoginFormPage from './pages/LoginFormPage';
 import useAdminStore from './hooks/useAdminStore';
 import NotAdminPage from './pages/NotAdminPage';
-import Register from './components/Register';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -65,7 +64,6 @@ export default function App() {
           <Menu />
           <Content>
             <Routes>
-              <Route path="/register" element={<Register />} />
               <Route path="/" element={<LoginFormPage />} />
               <Route path="dashboard" element={<DashBoardPage />} />
               <Route path="manage-members" element={<MemberListPage />} />

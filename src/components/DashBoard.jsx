@@ -214,15 +214,11 @@ export default function DashBoard({
 
   const { admin } = adminStroe;
 
-  const click = async () => {
-    await adminStroe.register();
-  };
-
   return (
     <Container>
       <Member>
         <MyInformation>
-          <ProfileImageBox onClick={click}>
+          <ProfileImageBox>
             <img src={admin.profileImage} alt="profileImage" />
           </ProfileImageBox>
           <Information>

@@ -14,7 +14,7 @@ const accessToken = JSON.parse(data);
 memberApiService.setAccessToken(accessToken);
 
 root.render(
-  <BrowserRouter basename="/kick-off-admin">
+  <BrowserRouter>
     <App />
   </BrowserRouter>,
 );
