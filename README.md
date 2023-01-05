@@ -19,7 +19,7 @@
 - 관리자 기능을 통해 게시판 및 사용자 관리 
  
 ## 📝 사용자 스토리
-- [어드민 사용자 스토리](https://husky-frog-c26.notion.site/e95cf335700547b3a719576bdb247875}
+- [어드민 사용자 스토리](https://husky-frog-c26.notion.site/e95cf335700547b3a719576bdb247875)
 
 ## 🏃🏻‍♂️ 프로젝트 Sprint별 목표 
 - Sprint#1
